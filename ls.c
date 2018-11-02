@@ -5,7 +5,7 @@
 #include <sys/types.h>
 #include <sys/stat.h>
 
-void print_dir(char* dir, int tab){
+void print_dir(char* dir){
   DIR* my_dir = opendir(dir);
 
   struct dirent* curr = readdir(my_dir);
@@ -19,12 +19,8 @@ void print_dir(char* dir, int tab){
     curr = readdir(my_dir);
   }
 
-  char str[128] = "";
-  for (int i = 0; i < tab; i ++)
-    strcat(str, "\t");
-
-  printf("%sStatistics for directory: %s\n", str, dir);
-  printf("%sTotal Directory Size: %ld Bytes\n", str, total_size);
+  printf("Statistics for directory: %s\n", dir);
+  printf("Total Directory Size: %ld Bytes\n", total_size);
 
   my_dir = opendir(dir);
   curr = readdir(my_dir);
@@ -32,11 +28,9 @@ void print_dir(char* dir, int tab){
   while (curr){
 
     if (curr->d_type == DT_DIR){
-      printf("%sdirectory\t%s\n", str, curr->d_name);
-      if (strcmp(curr->d_name, ".") && strcmp(curr->d_name, ".."))
-        print_dir(curr->d_name, tab + 1);
+      printf("directory\t%s\n", curr->d_name);
     } else
-      printf("%sregular file\t%s\n", str, curr->d_name);
+      printf("regular file\t%s\n", curr->d_name);
 
     curr = readdir(my_dir);
   }
@@ -45,6 +39,6 @@ void print_dir(char* dir, int tab){
 }
 
 int main(){
-  print_dir(".", 0);
+  print_dir(".");
   return 0;
 }
