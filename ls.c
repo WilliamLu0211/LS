@@ -38,7 +38,16 @@ void print_dir(char* dir){
   closedir(my_dir);
 }
 
-int main(){
-  print_dir(".");
+int main(int argc, char *argv[]){
+  if(argc == 2){
+    print_dir(argv[1]);
+  }
+  else{
+    char *s1 =malloc(sizeof(char*));
+    printf("Input directory:");
+    scanf("%s", s1);
+    print_dir(s1);
+  }
+  
   return 0;
 }
