@@ -39,15 +39,18 @@ void print_dir(char* dir){
 }
 
 int main(int argc, char *argv[]){
-  if(argc == 2){
-    print_dir(argv[1]);
+  char *s =malloc(sizeof(char));
+  if (argc > 2){
+    printf("error: too many arguments\n");
+    return 0;
+  }
+  else if(argc == 2){
+    strcpy(s, argv[1]);
   }
   else{
-    char *s1 =malloc(sizeof(char*));
-    printf("Input directory:");
-    scanf("%s", s1);
-    print_dir(s1);
+    printf("Input directory: ");
+    scanf("%s", s);
   }
-  
+  print_dir(s);
   return 0;
 }
